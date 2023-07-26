@@ -11,6 +11,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
+            /*
+             When you specify only the height parameter, the
+             view automatically sizes to the width of its
+             content. In this case, MapView expands to fill
+             the available space.
+             */
             MapView()
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
@@ -25,8 +31,15 @@ struct ContentView: View {
                 Text("Turtle Rock")
                     .font(.title)
 
+                /*
+                 When you apply a modifier to a layout view
+                 like a stack, SwiftUI applies the modifier
+                 to all the elements contained in the group.
+                 */
                 HStack {
                     Text("Joshua Tree National Park")
+                    // A spacer expands to make its containing view use all of the space of its parent view,
+                    // instead of having its size defined only by its contents
                     Spacer()
                     Text("California")
                 }
