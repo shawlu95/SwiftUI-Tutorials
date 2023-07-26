@@ -7,6 +7,7 @@ A view showing the details for a landmark.
 
 import SwiftUI
 
+// conforms to the View protocol and describes the view’s content and layout.
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -14,6 +15,8 @@ struct ContentView: View {
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
 
+            // Each modifier returns a new view,
+            // so it’s common to chain multiple modifiers
             CircleImage()
                 .offset(y: -130)
                 .padding(.bottom, -130)
@@ -43,6 +46,7 @@ struct ContentView: View {
     }
 }
 
+// declares a preview for that view.
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
