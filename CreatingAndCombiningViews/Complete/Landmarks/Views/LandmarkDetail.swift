@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct LandmarkDetail: View {
+    var landmark: Landmark
+    
     var body: some View {
         VStack {
             /*
@@ -17,18 +19,18 @@ struct LandmarkDetail: View {
              content. In this case, MapView expands to fill
              the available space.
              */
-            MapView()
+            MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
 
             // Each modifier returns a new view,
             // so it’s common to chain multiple modifiers
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
 
             VStack(alignment: .leading) {
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
 
                 /*
@@ -37,20 +39,20 @@ struct LandmarkDetail: View {
                  to all the elements contained in the group.
                  */
                 HStack {
-                    Text("Joshua Tree National Park")
+                    Text(landmark.park)
                     // A spacer expands to make its containing view use all of the space of its parent view,
                     // instead of having its size defined only by its contents
                     Spacer()
-                    Text("California")
+                    Text(landmark.state)
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
                 Divider()
 
-                Text("About Turtle Rock")
+                Text("About \(landmark.name)")
                     .font(.title2)
-                Text("Descriptive text goes here.")
+                Text(landmark.description)
             }
             .padding()
 
@@ -60,5 +62,5 @@ struct LandmarkDetail: View {
 }
 
 #Preview {
-    LandmarkDetail()
+    LandmarkDetail(landmark: landmarks[1])
 }

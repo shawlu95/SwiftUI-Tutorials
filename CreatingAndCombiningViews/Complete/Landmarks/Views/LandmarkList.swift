@@ -14,7 +14,7 @@ struct LandmarkList: View {
             // Lists work with identifiable data.
             List(landmarks) { landmark in
                 NavigationLink {
-                    LandmarkDetail()
+                    LandmarkDetail(landmark: landmark)
                 } label: {
                     LandmarkRow(landmark: landmark)
                 }
