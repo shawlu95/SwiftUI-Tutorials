@@ -23,6 +23,12 @@ struct LandmarkRow: View {
 }
 
 #Preview {
-    // use the first landmark for preview
-    LandmarkRow(landmark: landmarks[0])
+    Group {
+        LandmarkRow(landmark: landmarks[0])
+            .previewLayout(.fixed(width: 300, height: 70))
+        LandmarkRow(landmark: landmarks[1])
+            .previewLayout(.fixed(width: 300, height: 70))
+        LandmarkRow(landmark: landmarks[2])
+            .previewLayout(.fixed(width: 300, height: 70))
+    }
 }
