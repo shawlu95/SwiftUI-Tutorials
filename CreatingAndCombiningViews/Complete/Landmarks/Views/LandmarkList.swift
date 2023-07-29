@@ -27,4 +27,5 @@ struct LandmarkList: View {
 
 #Preview {
     LandmarkList()
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
 }
