@@ -12,7 +12,7 @@ struct LandmarkDetail: View {
     var landmark: Landmark
     
     var body: some View {
-        VStack {
+        ScrollView {
             /*
              When you specify only the height parameter, the
              view automatically sizes to the width of its
@@ -55,8 +55,6 @@ struct LandmarkDetail: View {
                 Text(landmark.description)
             }
             .padding()
-
-            Spacer()
         }
     }
 }
