@@ -20,11 +20,20 @@ struct BadgeSymbol: View {
                 let topHeight = height * 0.488
 
                 path.addLines([
-                    CGPoint(x: middle, y: spacing),
-                    CGPoint(x: middle - topWidth, y: topHeight - spacing),
-                    CGPoint(x: middle, y: topHeight / 2 + spacing),
-                    CGPoint(x: middle + topWidth, y: topHeight - spacing),
+                    CGPoint(x: middle, y: spacing), // top
+                    CGPoint(x: middle - topWidth, y: topHeight - spacing), // lower left
+                    CGPoint(x: middle, y: topHeight / 2 + spacing), // lower middle
+                    CGPoint(x: middle + topWidth, y: topHeight - spacing), // lower right
                     CGPoint(x: middle, y: spacing)
+                ])
+                
+                path.move(to: CGPoint(x: middle, y: topHeight / 2 + spacing * 3))
+                path.addLines([
+                    CGPoint(x: middle - topWidth, y: topHeight + spacing),
+                    CGPoint(x: spacing, y: height - spacing), // lower left
+                    CGPoint(x: width - spacing, y: height - spacing), // lower right
+                    CGPoint(x: middle + topWidth, y: topHeight + spacing),
+                    CGPoint(x: middle, y: topHeight / 2 + spacing * 3) // top
                 ])
             }
         }
