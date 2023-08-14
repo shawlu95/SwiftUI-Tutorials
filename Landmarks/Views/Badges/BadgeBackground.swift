@@ -27,6 +27,17 @@ struct BadgeBackground: View {
                         y: height * segment.line.y
                     )
                 )
+                
+                path.addQuadCurve(
+                    to: CGPoint(
+                        x: width * segment.curve.x,
+                        y: height * segment.curve.y
+                    ),
+                    control: CGPoint(
+                        x: width * segment.control.x,
+                        y: height * segment.control.y
+                    )
+                )
             }
         }
         .fill(.black)
