@@ -29,9 +29,9 @@ struct LandmarkRow: View {
 #Preview {
     // A view’s children inherit the view’s contextual settings, such as preview configurations.
     Group {
-        LandmarkRow(landmark: landmarks[0])
-        LandmarkRow(landmark: landmarks[1])
-        LandmarkRow(landmark: landmarks[2])
+        LandmarkRow(landmark: ModelData().landmarks[0])
+        LandmarkRow(landmark: ModelData().landmarks[1])
+        LandmarkRow(landmark: ModelData().landmarks[2])
     }
     .previewLayout(.fixed(width: 300, height: 70))
 }
