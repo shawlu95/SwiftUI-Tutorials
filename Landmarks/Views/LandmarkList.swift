@@ -20,6 +20,9 @@ struct LandmarkList: View {
         NavigationView {
             // Lists work with identifiable data.
             List {
+                Toggle(isOn: $showFavoritesOnly) {
+                    Text("Favorites only")
+                }
                 ForEach(filteredLandmarks) { landmark in
                     NavigationLink {
                         LandmarkDetail(landmark: landmark)
