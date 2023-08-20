@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct FavoriteButton: View {
+    // A binding controls the storage for a value,
+    // so you can pass data around to different views
+    // that need to read or write it.
     @Binding var isSet: Bool
     var body: some View {
         Button {

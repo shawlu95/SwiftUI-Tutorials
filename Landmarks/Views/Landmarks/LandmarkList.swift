@@ -12,6 +12,9 @@ struct LandmarkList: View {
     // The modelData property gets its value automatically,
     // as long as the environmentObject(_:) modifier has been applied to a parent.
     @EnvironmentObject var modelData: ModelData
+    
+    // Always mark state properties as private because state
+    // should be specific to a view and its child views.
     @State private var showFavoritesOnly = false
     
     var filteredLandmarks: [Landmark] {
