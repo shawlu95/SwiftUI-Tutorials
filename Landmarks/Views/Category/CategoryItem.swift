@@ -14,10 +14,12 @@ struct CategoryItem: View {
         VStack(alignment: .leading) {
             landmark.image
                 .resizable()
+                .renderingMode(.original)
                 .frame(width: 155, height: 155)
                 .cornerRadius(5)
             Text(landmark.name)
                 .font(.caption)
+                .foregroundColor(.primary)
         }
         .padding(.leading, 15)
     }
