@@ -9,12 +9,16 @@
 import SwiftUI
 
 struct ProfileHost: View {
-    @State private var draftProfile = Profile.default
-
+    @Environment(\.editMode) var editMode
+    @EnvironmentObject var modelData: ModelData
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ProfileSummary(profile: draftProfile)
+            HStack {
+                Spacer()
+                EditButton()
+            }
+            ProfileSummary(profile: modelData.profile)
         }
         .padding()
     }
@@ -22,4 +26,5 @@ struct ProfileHost: View {
 
 #Preview {
     ProfileHost()
+        .environmentObject(ModelData())
 }

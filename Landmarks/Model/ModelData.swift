@@ -14,6 +14,10 @@ final class ModelData: ObservableObject {
     // don't need @Published, becasue data won't update after loaded
     var hikes: [Hike] = load("hikeData.json")
     
+    // include an instance of the user profile that persists even
+    // after the user dismisses the profile view.
+    @Published var profile = Profile.default
+    
     // category names as keys,
     // an array of associated landmarks for each key.
     var categories: [String: [Landmark]] {
