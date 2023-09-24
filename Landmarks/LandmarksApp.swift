@@ -21,5 +21,19 @@ struct LandmarksApp: App {
                 // You apply this modifier so that views further down
                 // in the view hierarchy can read data objects passed down through the environment.
         }
+        // Scene modifiers work like view modifiers, 
+        // except that you apply them to scenes instead of views.
+        #if !os(watchOS)
+        .commands {
+            LandmarkCommands()
+        }
+        #endif
+        
+        // add Setting scene for macOS
+        #if os(macOS)
+        Settings {
+            LandmarkSettings()
+        }
+        #endif
     }
 }

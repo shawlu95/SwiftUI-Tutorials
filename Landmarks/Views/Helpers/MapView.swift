@@ -17,8 +17,32 @@ struct MapView: View {
      storage and automatically updates views that depend on
      the value.
      */
-    @State private var region = MKCoordinateRegion()
+    // now a computed property passed to the Map initializer as a constant binding.
+    // @State private var region = MKCoordinateRegion()
 
+    // Use a storage key that uniquely identifies the parameter
+    // like you would when storing items in UserDefaults
+    @AppStorage("MapView.zoom")
+    private var zoom: Zoom = .medium
+    
+    enum Zoom: String, CaseIterable, Identifiable {
+        case near = "Near"
+        case medium = "Medium"
+        case far = "Far"
+
+        var id: Zoom {
+            return self
+        }
+    }
+    
+    var delta: CLLocationDegrees {
+        switch zoom {
+        case .near: return 0.02
+        case .medium: return 0.2
+        case .far: return 2
+        }
+    }
+    
     /*
      By prefixing a state variable with $, you pass a
      binding, which is like a reference to the underlying
@@ -27,15 +51,12 @@ struct MapView: View {
      that’s currently visible in the user interface.
      */
     var body: some View {
-        Map(coordinateRegion: $region)
-            .onAppear {
-                setRegion(coordinate)
-            }
+        Map(coordinateRegion: .constant(region))
     }
     
-    private func setRegion(_ coordinate: CLLocationCoordinate2D) {
-        region = MKCoordinateRegion(
-            center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    var region: MKCoordinateRegion {
+        MKCoordinateRegion(
+            center: coordinate, span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         )
     }
 }
