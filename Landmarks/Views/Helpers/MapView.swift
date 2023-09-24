@@ -17,7 +17,8 @@ struct MapView: View {
      storage and automatically updates views that depend on
      the value.
      */
-    @State private var region = MKCoordinateRegion()
+    // now a computed property passed to the Map initializer as a constant binding.
+    // @State private var region = MKCoordinateRegion()
 
     // Use a storage key that uniquely identifies the parameter
     // like you would when storing items in UserDefaults
@@ -50,14 +51,11 @@ struct MapView: View {
      that’s currently visible in the user interface.
      */
     var body: some View {
-        Map(coordinateRegion: $region)
-            .onAppear {
-                setRegion(coordinate)
-            }
+        Map(coordinateRegion: .constant(region))
     }
     
-    private func setRegion(_ coordinate: CLLocationCoordinate2D) {
-        region = MKCoordinateRegion(
+    var region: MKCoordinateRegion {
+        MKCoordinateRegion(
             center: coordinate, span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         )
     }
