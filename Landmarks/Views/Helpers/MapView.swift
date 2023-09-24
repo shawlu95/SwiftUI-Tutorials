@@ -19,6 +19,29 @@ struct MapView: View {
      */
     @State private var region = MKCoordinateRegion()
 
+    // Use a storage key that uniquely identifies the parameter
+    // like you would when storing items in UserDefaults
+    @AppStorage("MapView.zoom")
+    private var zoom: Zoom = .medium
+    
+    enum Zoom: String, CaseIterable, Identifiable {
+        case near = "Near"
+        case medium = "Medium"
+        case far = "Far"
+
+        var id: Zoom {
+            return self
+        }
+    }
+    
+    var delta: CLLocationDegrees {
+        switch zoom {
+        case .near: return 0.02
+        case .medium: return 0.2
+        case .far: return 2
+        }
+    }
+    
     /*
      By prefixing a state variable with $, you pass a
      binding, which is like a reference to the underlying
@@ -35,7 +58,7 @@ struct MapView: View {
     
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
-            center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+            center: coordinate, span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         )
     }
 }
