@@ -38,15 +38,17 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
     // Later, you’ll make this more efficient by initializing the controller only once for the life of the page view controller.
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
         pageViewController.setViewControllers(
-                    [UIHostingController(rootView: pages[0])], direction: .forward, animated: true)
+            [context.coordinator.controllers[0]], direction: .forward, animated: true)
     }
 
     class Coordinator: NSObject {
         var parent: PageViewController
+        var controllers = [UIViewController]()
 
 
         init(_ pageViewController: PageViewController) {
             parent = pageViewController
+            controllers = parent.pages.map { UIHostingController(rootView: $0) }
         }
     }
 }
