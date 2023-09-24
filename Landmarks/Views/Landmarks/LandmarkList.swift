@@ -22,6 +22,8 @@ struct LandmarkList: View {
     // each with its own filter setting, to be able
     // to look at the data in different ways.
     @State private var filter = FilterCategory.all
+    
+    @State private var selectedLandmark: Landmark?
 
     enum FilterCategory: String, CaseIterable, Identifiable {
         case all = "All"
@@ -43,16 +45,22 @@ struct LandmarkList: View {
         return showFavoritesOnly ? "Favorite \(title)" : title
     }
     
+    // a computed property that indicates the index of the selected landmark
+    var index: Int? {
+        modelData.landmarks.firstIndex(where: { $0.id == selectedLandmark?.id })
+    }
+    
     var body: some View {
         NavigationView {
             // Lists work with identifiable data.
-            List {
+            List(selection: $selectedLandmark) {
                 ForEach(filteredLandmarks) { landmark in
                     NavigationLink {
                         LandmarkDetail(landmark: landmark)
                     } label: {
                         LandmarkRow(landmark: landmark)
                     }
+                    .tag(landmark)
                 }
             }
             .navigationTitle(title)
@@ -85,6 +93,7 @@ struct LandmarkList: View {
             // converts the list to use the sidebar list style.
             Text("Select a Landmark")
         }
+        .focusedValue(\.selectedLandmark, $modelData.landmarks[index ?? 0])
     }
 }
 
