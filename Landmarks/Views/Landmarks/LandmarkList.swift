@@ -17,11 +17,32 @@ struct LandmarkList: View {
     // should be specific to a view and its child views.
     @State private var showFavoritesOnly = false
     
+    // By storing the filter state in the list view, 
+    // the user can open multiple list view windows,
+    // each with its own filter setting, to be able
+    // to look at the data in different ways.
+    @State private var filter = FilterCategory.all
+
+    enum FilterCategory: String, CaseIterable, Identifiable {
+        case all = "All"
+        case lakes = "Lakes"
+        case rivers = "Rivers"
+        case mountains = "Mountains"
+        var id: FilterCategory { self }
+    }
+    
     var filteredLandmarks: [Landmark] {
         modelData.landmarks.filter{ landmark in
             (!showFavoritesOnly || landmark.isFavorite)
+                && (filter == .all || filter.rawValue == landmark.category.rawValue)
         }
     }
+    
+    var title: String {
+        let title = filter == .all ? "Landmarks" : filter.rawValue
+        return showFavoritesOnly ? "Favorite \(title)" : title
+    }
+    
     var body: some View {
         NavigationView {
             // Lists work with identifiable data.
@@ -34,7 +55,7 @@ struct LandmarkList: View {
                     }
                 }
             }
-            .navigationTitle("Landmarks")
+            .navigationTitle(title)
             // This improves the preview, but also ensures that
             // the list never becomes too small as the user
             // resizes the macOS window.
@@ -42,6 +63,16 @@ struct LandmarkList: View {
             .toolbar {
                 ToolbarItem {
                     Menu {
+                        // Because the filter has only a few items,
+                        // you use the inline picker style to make
+                        // them all appear together.
+                        Picker("Category", selection: $filter) {
+                            ForEach(FilterCategory.allCases) { category in
+                                Text(category.rawValue).tag(category)
+                            }
+                        }
+                        .pickerStyle(.inline)
+                        
                         Toggle(isOn: $showFavoritesOnly) {
                             Text("Favorites only")
                         }
@@ -50,6 +81,9 @@ struct LandmarkList: View {
                     }
                 }
             }
+            // Adding the second child view automatically
+            // converts the list to use the sidebar list style.
+            Text("Select a Landmark")
         }
     }
 }
