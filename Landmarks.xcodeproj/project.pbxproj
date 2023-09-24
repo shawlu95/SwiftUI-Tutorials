@@ -123,10 +123,10 @@
 		1B212A0A2AC05AE500DFF324 /* PageView */ = {
 			isa = PBXGroup;
 			children = (
-				1B212A082AC055FC00DFF324 /* PageView.swift */,
+				1B212A062AC0553D00DFF324 /* FeatureCard.swift */,
 				1B212A042AC053C000DFF324 /* PageViewController.swift */,
 				1B212A0C2AC0612800DFF324 /* PageControl.swift */,
-				1B212A062AC0553D00DFF324 /* FeatureCard.swift */,
+				1B212A082AC055FC00DFF324 /* PageView.swift */,
 			);
 			path = PageView;
 			sourceTree = "<group>";
