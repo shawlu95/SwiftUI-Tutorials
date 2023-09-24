@@ -15,9 +15,11 @@ struct PageView<Page: View>: View {
 
     var body: some View {
         // Remember to use the $ syntax to create a binding to a value that is stored as state.
-        VStack {
+        ZStack(alignment: .bottomLeading) {
             PageViewController(pages: pages, currentPage: $currentPage)
-            Text("Current Page: \(currentPage)")
+            PageControl(numberOfPages: pages.count, currentPage: $currentPage)
+                .frame(width: CGFloat(pages.count * 18))
+                .padding(.trailing)
         }
     }
 }
