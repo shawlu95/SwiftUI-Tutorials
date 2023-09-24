@@ -38,7 +38,10 @@ struct LandmarkList: View {
                 }
             }
             .navigationTitle("Landmarks")
-            
+            // This improves the preview, but also ensures that
+            // the list never becomes too small as the user
+            // resizes the macOS window.
+            .frame(minWidth: 300)
         }
     }
 }
