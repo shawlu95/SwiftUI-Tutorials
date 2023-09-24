@@ -11,9 +11,14 @@ import SwiftUI
 // create a custom view to present UIViewControllerRepresentable view.
 struct PageView<Page: View>: View {
     var pages: [Page]
+    @State private var currentPage = 1
 
     var body: some View {
-        PageViewController(pages: pages)
+        // Remember to use the $ syntax to create a binding to a value that is stored as state.
+        VStack {
+            PageViewController(pages: pages, currentPage: $currentPage)
+            Text("Current Page: \(currentPage)")
+        }
     }
 }
 
