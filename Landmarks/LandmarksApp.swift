@@ -29,6 +29,11 @@ struct LandmarksApp: App {
         }
         #endif
         
+        // The scene only makes sense for watchOS, so add the conditional compilation
+        #if os(watchOS)
+        WKNotificationScene(controller: NotificationController.self, category: "LandmarkNear")
+        #endif
+        
         // add Setting scene for macOS
         #if os(macOS)
         Settings {
