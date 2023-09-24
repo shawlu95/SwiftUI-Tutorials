@@ -13,6 +13,17 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
     
     var pages: [Page]
     
+    /*
+     SwiftUI calls this makeCoordinator() method before makeUIViewController(context:), 
+     so that you have access to the coordinator object when configuring your view controller.
+
+     You can use this coordinator to implement common Cocoa patterns, such as delegates, 
+     data sources, and responding to user events via target-action.
+     */
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
     // SwiftUI calls this method a single time when it’s ready to display the view
     func makeUIViewController(context: Context) -> UIPageViewController {
         let pageViewController = UIPageViewController(
@@ -30,5 +41,12 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
                     [UIHostingController(rootView: pages[0])], direction: .forward, animated: true)
     }
 
+    class Coordinator: NSObject {
+        var parent: PageViewController
 
+
+        init(_ pageViewController: PageViewController) {
+            parent = pageViewController
+        }
+    }
 }
