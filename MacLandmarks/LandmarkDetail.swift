@@ -18,44 +18,34 @@ struct LandmarkDetail: View {
     
     var body: some View {
         ScrollView {
-            /*
-             When you specify only the height parameter, the
-             view automatically sizes to the width of its
-             content. In this case, MapView expands to fill
-             the available space.
-             */
             MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
-
-            // Each modifier returns a new view,
-            // so it’s common to chain multiple modifiers
-            CircleImage(image: landmark.image)
-                .offset(y: -130)
-                .padding(.bottom, -130)
-
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(landmark.name)
-                        .font(.title)
-                    Spacer()
-                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
+            VStack(alignment: .leading, spacing: 20) {
+                HStack(spacing: 24) {
+                    
+                    // Add a resizable() modifier to the image,
+                    // and constrain the CircleImage to be a bit smaller.
+                    CircleImage(image: landmark.image.resizable())
+                        .frame(width: 160, height: 160)
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(landmark.name)
+                                .font(.title)
+                            Spacer()
+                            FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
+                                .buttonStyle(.plain)
+                        }
+                        
+                        VStack (alignment: .leading) {
+                            Text(landmark.park)
+                            Text(landmark.state)
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    }
                 }
-
-                /*
-                 When you apply a modifier to a layout view
-                 like a stack, SwiftUI applies the modifier
-                 to all the elements contained in the group.
-                 */
-                HStack {
-                    Text(landmark.park)
-                    // A spacer expands to make its containing view use all of the space of its parent view,
-                    // instead of having its size defined only by its contents
-                    Spacer()
-                    Text(landmark.state)
-                }
-                .font(.subheadline)
-                .foregroundColor(.secondary)
 
                 Divider()
 
@@ -64,12 +54,21 @@ struct LandmarkDetail: View {
                 Text(landmark.description)
             }
             .padding()
+            // improves readability when the user makes the window very wide.
+            .frame(maxWidth: 700)
+            // apply a smaller offset to the entire
+            .offset(y: -50)
         }
         .navigationTitle(landmark.name)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-#Preview {
-    LandmarkDetail(landmark: ModelData().landmarks[1])
+struct LandmarkDetail_Previews: PreviewProvider {
+    static let modelData = ModelData()
+
+    static var previews: some View {
+        LandmarkDetail(landmark: modelData.landmarks[0])
+            .environmentObject(modelData)
+            .frame(width: 850, height: 700)
+    }
 }
