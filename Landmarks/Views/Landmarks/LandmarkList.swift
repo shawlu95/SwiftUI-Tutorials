@@ -26,9 +26,6 @@ struct LandmarkList: View {
         NavigationView {
             // Lists work with identifiable data.
             List {
-                Toggle(isOn: $showFavoritesOnly) {
-                    Text("Favorites only")
-                }
                 ForEach(filteredLandmarks) { landmark in
                     NavigationLink {
                         LandmarkDetail(landmark: landmark)
@@ -42,6 +39,17 @@ struct LandmarkList: View {
             // the list never becomes too small as the user
             // resizes the macOS window.
             .frame(minWidth: 300)
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Toggle(isOn: $showFavoritesOnly) {
+                            Text("Favorites only")
+                        }
+                    } label: {
+                        Label("Filter", systemImage: "slider.horizontal.3")
+                    }
+                }
+            }
         }
     }
 }
